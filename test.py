@@ -27,11 +27,23 @@ def ChatGPT_request(prompt):
   completion = client.chat.completions.create(
   model="gpt-3.5-turbo-1106", 
   response_format={ "type": "json_object" },
-  messages=[{"role": "user", "content": prompt}]
+  messages=[
+     {"role": "system", "content": "你是一个专业的就业市场数据分析助手，你将从大量岗位信息中提取有用的关键词，用于给数据分析师提供企业需要哪些技能及经验的人才的数据支持。"},
+     {"role": "user", "content": prompt}
+     ]
   )
   return completion.choices[0].message.content
   
+def ChatGPT4_request(prompt): 
 
+  # temp_sleep()
+  # try: 
+  completion = client.chat.completions.create(
+  model="gpt-4-1106-preview", 
+  response_format={ "type": "json_object" },
+  messages=[{"role": "user", "content": prompt}]
+  )
+  return completion.choices[0].message.content
 
 # wait=wait_random_exponential(min=1, max=20) 表示每次重试之间的等待时间是一个随机的指数增长的数，最小是 1 秒，最大是 20 秒
 # stop=stop_after_attempt(2) 表示最多重试 2 次
